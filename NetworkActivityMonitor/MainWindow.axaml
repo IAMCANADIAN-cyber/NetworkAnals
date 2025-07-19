@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:NetworkActivityMonitor"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="NetworkActivityMonitor.MainWindow"
+        x:DataType="local:MainWindow"
+        Title="Network Activity Monitor">
+    <Grid RowDefinitions="Auto,*,Auto,Auto" ColumnDefinitions="*">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Settings" Margin="5"/>
+            <Button Content="Help" Margin="5"/>
+            <Button Content="Exit" Margin="5"/>
+        </StackPanel>
+
+        <TextBox Grid.Row="1" Watermark="Filter by app, IP, or domain" Margin="5"/>
+
+        <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Connections}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="App Name" Binding="{Binding AppName}" Width="*"/>
+                <DataGridTextColumn Header="Process ID" Binding="{Binding ProcessId}" Width="Auto"/>
+                <DataGridTextColumn Header="Local Port" Binding="{Binding LocalPort}" Width="Auto"/>
+                <DataGridTextColumn Header="Remote IP" Binding="{Binding RemoteAddress}" Width="*"/>
+                <DataGridTextColumn Header="Hostname" Binding="{Binding RemoteHostName}" Width="*"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="Auto"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="🟢 Trusted 🟡 Unknown 🔴 Suspicious" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ConnectionSummary}" VerticalAlignment="Center" Margin="10,0"/>
+            <Button Content="Export CSV" Margin="5"/>
+            <Button Content="Refresh Now" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
